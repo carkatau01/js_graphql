@@ -16,21 +16,27 @@ const DB_HOST = process.env.DB_HOST
 const app = express()
 db.connect(DB_HOST)
 
-// apollo server
-const server = new ApolloServer({
-    typeDefs,
-    resolvers,
-    context: () => {
-        return { models }
-    },
-})
+let apolloServer = null
+async function startServer() {
+    // apollo server
+    apolloServer = new ApolloServer({
+        typeDefs,
+        resolvers,
+        context: () => {
+            return { models }
+        },
+    })
 
-// api
-server.applyMiddleware({ app, path: '/api' })
+    // api
+    await apolloServer.start()
+    apolloServer.applyMiddleware({ app, path: '/api' })
+}
+
+startServer()
 
 // application start
 app.listen({ port }, () => {
     console.log(
-        `GraphQL Server running at http://localhost:${port}${server.graphqlPath}`
+        `GraphQL Server running at http://localhost:${port}${apolloServer.graphqlPath}`
     )
 })
