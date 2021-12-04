@@ -1,6 +1,18 @@
 const express = require('express')
 const { ApolloServer } = require('apollo-server-express')
 
+const jwt = require('jsonwebtoken')
+
+const getUser = (token) => {
+    if (token) {
+        try {
+            return jwt.verify(token, process.env.JWT_SECRET)
+        } catch (err) {
+            new Error('Session Invalid')
+        }
+    }
+}
+
 require('dotenv').config()
 
 // local modules
@@ -22,7 +34,12 @@ async function startServer() {
     apolloServer = new ApolloServer({
         typeDefs,
         resolvers,
-        context: () => {
+        context: ({ req }) => {
+            const token = req.headers.authorization
+            const user = getUser(token)
+
+            console.log(user)
+
             return { models }
         },
     })
