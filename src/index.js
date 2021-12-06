@@ -40,7 +40,7 @@ async function startServer() {
 
             console.log(user)
 
-            return { models }
+            return { models, user }
         },
     })
 
@@ -53,7 +53,5 @@ startServer()
 
 // application start
 app.listen({ port }, () => {
-    console.log(
-        `GraphQL Server running at http://localhost:${port}${apolloServer.graphqlPath}`
-    )
+    console.log(`GraphQL Server running at http://localhost:${port}/api`)
 })
