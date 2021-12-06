@@ -6,6 +6,7 @@
     "express": "^4.17.1",
     "graphql": "^16.0.1",
     "graphql-iso-date": "^3.6.1",
+    "helmet": "^4.6.0",
     "jsonwebtoken": "^8.5.1",
     "md5": "^2.3.0",
     "mongoose": "^6.0.12",
