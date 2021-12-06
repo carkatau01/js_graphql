@@ -38,8 +38,6 @@ async function startServer() {
             const token = req.headers.authorization
             const user = getUser(token)
 
-            console.log(user)
-
             return { models, user }
         },
     })
