@@ -15,7 +15,7 @@ module.exports = {
         return await models.Note.findById(args.id)
     },
     noteFeed: async (parent, { cursor }, { models }) => {
-        const limit = 2
+        const limit = 10
         let hasNextPage = false
         let cursorQuery = {}
 
